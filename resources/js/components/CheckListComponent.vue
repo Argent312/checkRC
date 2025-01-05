@@ -74,7 +74,6 @@
                 .then(res=>{
                     this.list.splice(variableId, 1);
                     this.list = res.data;  
-                    this.list.splice(variableId, 1);
 
                 
         })

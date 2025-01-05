@@ -21,6 +21,10 @@ app.component('example-component', ExampleComponent);
 import CheckListComponent from './components/CheckListComponent.vue';
 app.component('check-list', CheckListComponent);
 
+import AdmindComponent from './components/AdmindComponent.vue';
+app.component('admin', AdmindComponent);
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

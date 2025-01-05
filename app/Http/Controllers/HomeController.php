@@ -33,7 +33,7 @@ class HomeController extends Controller
 
     }
     public function list(){
-        $list= check::where('state', '>', 0)->get();
+        $list= check::where('state', '>', 0)->orderBy('category', 'ASC')->get();
         return response()->json($list);
     }   
 
@@ -41,7 +41,7 @@ class HomeController extends Controller
         $work = check::findOrFail($id);
         $work->state = 0;
         $work->update();
-        $list= check::where('state', '>', 0)->get();
+        $list= check::where('state', '>', 0)->orderBy('category', 'ASC')->get();
         return response()->json($list);
     }
 
@@ -50,7 +50,45 @@ class HomeController extends Controller
         $reset = '1';
         check::where('state','0')->update(['state'=>'1',]);
 
-        $list= check::where('state', '>', 0)->get();
+        $list= check::where('state', '>', 0)->orderBy('category', 'ASC')->get();
         return response()->json($list);
-    }   
+    }  
+    
+    
+
+
+    //Controladores para administrador
+    public function admin()
+    {
+        return view('admin');
+        
+
+    }
+
+    public function edit(Request $request)
+    {
+        
+        $actividad = check::findOrFail($request->id);
+        $actividad->owner = $request->owner;
+        $actividad->name=$request->name;
+        $actividad->category=$request->category;
+        $actividad->update();
+
+        $list= check::where('state', '>', 0)->orderBy('category', 'ASC')->get();
+        return response()->json($list);
+
+    }
+
+    public function add(Request $request)
+    {
+        $actividad = new check();
+        $actividad->category = $request->category;
+        $actividad->name = $request->name;
+        $actividad->owner = $request->owner;
+
+        $actividad->saveOrFail();
+
+        $list= check::where('state', '>', 0)->orderBy('category', 'ASC')->get();
+        return response()->json($list);
+    }
 }
