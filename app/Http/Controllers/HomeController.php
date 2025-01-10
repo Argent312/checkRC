@@ -81,13 +81,15 @@ class HomeController extends Controller
 
     public function add(Request $request)
     {
-        $actividad = new check();
+        
+        
+        $actividad = new check;
         $actividad->category = $request->category;
         $actividad->name = $request->name;
         $actividad->owner = $request->owner;
-
-        $actividad->saveOrFail();
-
+        $actividad->state = "1";
+        $actividad->save();
+        
         $list= check::where('state', '>', 0)->orderBy('category', 'ASC')->get();
         return response()->json($list);
     }

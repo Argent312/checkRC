@@ -141,10 +141,15 @@
                     owner:this.actividad.owner,
                     id:this.actividad.id
                 }
+                
                 axios.post('/add', params).then(res=>{
+                    
                     this.list = res.data;
             
                 })
+                this.formactive = false;
+                this.tableactive = true;
+                this.addactive = false;
             },
             //Activar el formulario de edicion, y ocultar la tabla de registros
             editar(item){
