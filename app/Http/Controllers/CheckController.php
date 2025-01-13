@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Event;
 class CheckController extends Controller
 {
     /**
@@ -11,8 +11,14 @@ class CheckController extends Controller
      */
     public function index()
     {
-        //
+        
+        return view('event');
     }
+
+    public function list(){
+        $list= Event::where('state', '>', 0)->orderBy('evento', 'ASC')->get();
+        return response()->json($list);
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +33,16 @@ class CheckController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $actividad = new Event;
+        $actividad->evento = $request->evento;
+        $actividad->name = $request->name;
+        $actividad->owner = $request->owner;
+        $actividad->state = "1";
+        $actividad->save();
+        
+        $list= Event::where('state', '>', 0)->orderBy('evento', 'ASC')->get();
+        return response()->json($list);
+    
     }
 
     /**
@@ -49,9 +64,13 @@ class CheckController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update($id)
     {
-        //
+        $work = Event::findOrFail($id);
+        $work->state = 0;
+        $work->update();
+        $list= Event::where('state', '>', 0)->orderBy('evento', 'ASC')->get();
+        return response()->json($list);
     }
 
     /**

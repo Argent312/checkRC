@@ -24,6 +24,9 @@ app.component('check-list', CheckListComponent);
 import AdmindComponent from './components/AdmindComponent.vue';
 app.component('admin', AdmindComponent);
 
+import EventComponent from './components/EventComponent.vue';
+app.component('event-list', EventComponent);
+
 
 /**
  * The following block of code may be used to automatically register your
