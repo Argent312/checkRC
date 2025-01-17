@@ -27,7 +27,7 @@
                 <a class="navbar-brand" href="{{ url('/eventos') }}">
                     Eventos
                 </a>
-                <a class="navbar-brand" href="{{ url('/pendient') }}">
+                <a class="navbar-brand" href="{{ url('/pendientes') }}">
                     Pendientes
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

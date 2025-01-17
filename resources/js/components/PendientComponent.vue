@@ -1,4 +1,5 @@
 <template>
+
     <div class="" v-if="tableactive">
 
         <button class="btn btn-primary btn-sm" 
@@ -9,23 +10,21 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <h3>Lista de Actividades:</h3>
+                    <h3>Lista de Pendientes:</h3>
 
 
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Evento</th>
+                                <th scope="col">Urgencia</th>
                                 <th scope="col">Actividad</th>
-                                <th scope="col">Responsable</th>
                                 <th scope="col">Check</th>
                             </tr>
                         </thead>
                         <tbody v-for="(item, index) in list" :key="index">
                             <tr>
-                                <td>{{item.evento}}</td>
+                                <td>{{item.urgencia}}</td>
                                 <td>{{item.name}}</td>
-                                <td>{{item.owner}}</td>
                                 <td> <button class="btn btn-warning btn-sm" 
                                     @click="edit(item.id)">Check</button>
                                 </td>   
@@ -49,16 +48,12 @@
         <br><br>
         
         <div class="mb-3">
-            <label for="evento" class="form-label">Evento</label>
-            <input v-model="actividad.evento" type="text" class="form-control" id="evento">
+            <label for="evento" class="form-label">Urgencia</label>
+            <input v-model="actividad.urgencia" type="text" class="form-control" id="evento">
         </div>    
         <div class="mb-3">
             <label for="name" class="form-label">Actividad</label>
             <input v-model="actividad.name" type="text" class="form-control" id="name">
-        </div>
-        <div class="mb-3">
-            <label for="owner" class="form-label">Responsable</label>
-            <input v-model="actividad.owner" type="text" class="form-control" id="owner">
         </div>
 
         
@@ -83,14 +78,13 @@
                 actividad:{
                     id:'',
                     name:'',
-                    owner:'',
-                    evento:'',
+                    urgencia:'',
                 }
             }
         },
         created(){
             
-            axios.get('/listaEventos').then(res=>{
+            axios.get('/listaPendientes').then(res=>{
             this.list = res.data;
             
             })
@@ -100,8 +94,7 @@
             //Metodo para agregar un nuevo registro AUN EN PRODUCCION
             add(){
                 this.actividad.name = '';
-                this.actividad.owner = '';
-                this.actividad.evento = '';
+                this.actividad.urgencia = '';
                 this.actividad.id = '';
 
                 this.formactive = false;
@@ -112,12 +105,11 @@
             
                 const params={
                     name:this.actividad.name,
-                    evento:this.actividad.evento,
-                    owner:this.actividad.owner,
+                    urgencia:this.actividad.urgencia,
                     id:this.actividad.id
                 }
                 
-                axios.post('/addEventos', params).then(res=>{
+                axios.post('/addPendientes', params).then(res=>{
                     
                     this.list = res.data;
             
@@ -137,7 +129,7 @@
             const data = {
                 state: '0',
             };
-            axios.put(`/listEvento/${variableId}`)
+            axios.put(`/listPendientes/${variableId}`)
                 .then(res=>{
                     this.list.splice(variableId, 1);
                     this.list = res.data;  

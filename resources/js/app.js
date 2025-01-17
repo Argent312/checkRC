@@ -18,14 +18,21 @@ const app = createApp({});
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
 
+//Componente de actividades por galas
 import CheckListComponent from './components/CheckListComponent.vue';
 app.component('check-list', CheckListComponent);
 
+//Componente Administrador, para gestionar todas las actividades, acceso solo a admin
 import AdmindComponent from './components/AdmindComponent.vue';
 app.component('admin', AdmindComponent);
 
+//Componente de actividades de eventos y salidas
 import EventComponent from './components/EventComponent.vue';
 app.component('event-list', EventComponent);
+
+//Componente de pendientes
+import PendientComponent from './components/PendientComponent.vue';
+app.component('pendient-list', PendientComponent);
 
 
 /**

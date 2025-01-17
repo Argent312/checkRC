@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CheckController;
+use App\Http\Controllers\PendientController;
+use App\Models\Pendient;
 
 Route::get('/', function () {
     return view('auth/login');
@@ -24,7 +26,12 @@ Route::post('/addEvent', [CheckController::class, 'addEvent']);
 Route::post('/addEventos', [CheckController::class, 'store']);
 Route::put('/listEvento/{id}', [CheckController::class, 'update']);
 
+//Ruta para panel de Eventos
+Route::get('/pendientes', [App\Http\Controllers\PendientController::class, 'index'])->name('pendient');
+Route::get('/listaPendientes', [App\Http\Controllers\PendientController::class, 'list']);
+Route::post('/addPendientes', [PendientController::class, 'store']);
+Route::put('/listPendientes/{id}', [PendientController::class, 'update']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/pendientes', [App\Http\Controllers\HomeController::class, 'pendient'])->name('event');
