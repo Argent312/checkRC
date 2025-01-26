@@ -18,6 +18,7 @@
                             <tr>
                                 <th scope="col">Urgencia</th>
                                 <th scope="col">Actividad</th>
+                                <th scope="col">Involucrado</th>
                                 <th scope="col">Check</th>
                             </tr>
                         </thead>
@@ -25,6 +26,7 @@
                             <tr>
                                 <td>{{item.urgencia}}</td>
                                 <td>{{item.name}}</td>
+                                <td>{{item.compartido}}</td>
                                 <td> <button class="btn btn-warning btn-sm" 
                                     @click="edit(item.id)">Check</button>
                                 </td>   
@@ -49,7 +51,12 @@
         
         <div class="mb-3">
             <label for="evento" class="form-label">Urgencia</label>
-            <input v-model="actividad.urgencia" type="text" class="form-control" id="evento">
+            <br>
+            <select v-model="actividad.urgencia" name="urgencia" id="urgencia">
+                
+                <option value="alta">Alta</option>
+                <option value="baja">Baja</option>
+            </select>
         </div>    
         <div class="mb-3">
             <label for="name" class="form-label">Actividad</label>
@@ -79,6 +86,7 @@
                     id:'',
                     name:'',
                     urgencia:'',
+                    compartido:'',
                 }
             }
         },

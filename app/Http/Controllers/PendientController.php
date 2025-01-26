@@ -24,6 +24,11 @@ class PendientController extends Controller
         $list= Pendient::where('state', '>', 0)->where('owner', '=', Auth::user()->name)->orderBy('urgencia', 'ASC')->get();
         return response()->json($list);
     } 
+
+    public function ver(){
+        $list= Pendient::where('state', '>', 0)->orderBy('urgencia', 'ASC')->get();
+        return response()->json($list);
+    } 
     /**
      * Show the form for creating a new resource.
      */

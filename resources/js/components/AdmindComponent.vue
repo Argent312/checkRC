@@ -1,10 +1,19 @@
 <template>
+    <button class="btn btn-success btn-sm m-r-2" 
+        @click="cancelar()">Ve Actividades
+    </button>
+    <button class="btn btn-info btn-sm m-r-2" 
+        @click="add()">Agregar Actividad
+    </button>
+    <button class="btn btn-success btn-sm" 
+        @click="verP()">Ver Pendientes
+    </button>
+    <button class="btn btn-info btn-sm m-r-2" 
+        @click="addP()">Agregar Pendiente
+    </button>
+    
+    <br><br>
     <div class="" v-if="tableactive">
-
-        <button class="btn btn-primary btn-sm" 
-            @click="add()">Agregar
-        </button>
-        <br><br>
 
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -32,11 +41,44 @@
                             </tr>
                         </tbody>
                     </table>
-
-
                 </div>
             </div>
-        </div>
+        </div>        
+    </div>
+
+
+
+    <div class="" v-if="pendienteactive">
+
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <h3>Lista de Pendientes:</h3>
+
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Actividad</th>
+                                <th scope="col">Responsable</th>
+                                <th scope="col">Involucrado</th>
+                                <th scope="col">Urgencia</th>
+                                <th scope="col">Fecha Creacion</th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="(item, index) in list" :key="index">
+                            <tr>
+                                <td>{{item.name}}</td>
+                                <td>{{item.owner}}</td>
+                                <td>{{item.compartido}}</td>
+                                <td>{{item.urgencia}}</td>
+                                <td>{{item.created_at}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>        
     </div>
 
 
@@ -97,6 +139,7 @@
     export default {
         data() {
             return {
+                pendienteactive: false,
                 formactive: false,
                 tableactive: true,
                 lists: [],
@@ -110,6 +153,17 @@
                     name:'',
                     owner:'',
                     category:'',
+                },
+
+
+                pendientes:[],
+                pendientes:{
+                    id:'',
+                    name:'',
+                    owner:'',
+                    compartido:'',
+                    urgencia:'',
+                    fecha:'',
                 }
             }
         },
@@ -131,6 +185,7 @@
 
                 this.formactive = false;
                 this.tableactive = false;
+                this.pendienteactive = false,
                 this.addactive = true;
             },
             adds(){
@@ -148,7 +203,31 @@
             
                 })
                 this.formactive = false;
+                this.pendienteactive= false,
                 this.tableactive = true;
+                this.addactive = false;
+            },
+
+            addP(){
+                this.actividad.name = '';
+                this.actividad.owner = '';
+                this.actividad.category = '';
+                this.actividad.id = '';
+
+                this.formactive = false;
+                this.pendienteactive= false,
+                this.tableactive = false;
+                this.addactive = true;
+            },
+            verP(){
+                axios.get('/verPendientes').then(res=>{
+                    this.list = res.data;
+            
+                })
+                
+                this.formactive = false;
+                this.tableactive = false;
+                this.pendienteactive= true,
                 this.addactive = false;
             },
             //Activar el formulario de edicion, y ocultar la tabla de registros
@@ -156,6 +235,7 @@
                 this.formactive = true;
                 this.tableactive = false;
                 this.addactive = false;
+                this.pendienteactive= false,
 
                 this.actividad.name = item.name;
                 this.actividad.owner = item.owner;
@@ -167,6 +247,7 @@
             this.formactive = false;
             this.tableactive = true;
             this.addactive = false;
+            this.pendienteactive= false;
         },
 
         //Metodo a modificar desarrollo
@@ -186,7 +267,8 @@
                 this.formactive = false;
                 this.tableactive = true;
                 this.addactive = false;
-                
+                this.pendienteactive= false;
+                        
         }
     }}
 </script>

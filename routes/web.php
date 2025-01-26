@@ -26,11 +26,12 @@ Route::post('/addEvent', [CheckController::class, 'addEvent']);
 Route::post('/addEventos', [CheckController::class, 'store']);
 Route::put('/listEvento/{id}', [CheckController::class, 'update']);
 
-//Ruta para panel de Eventos
+//Ruta para panel de Pendientes
 Route::get('/pendientes', [App\Http\Controllers\PendientController::class, 'index'])->name('pendient');
 Route::get('/listaPendientes', [App\Http\Controllers\PendientController::class, 'list']);
 Route::post('/addPendientes', [PendientController::class, 'store']);
 Route::put('/listPendientes/{id}', [PendientController::class, 'update']);
+Route::get('/verPendientes', [App\Http\Controllers\PendientController::class, 'ver']);
 
 Auth::routes();
 

@@ -35,7 +35,8 @@ class HomeController extends Controller
     public function list(){
         $list= check::where('state', '>', 0)->orderBy('category', 'ASC')->get();
         return response()->json($list);
-    }   
+    } 
+
 
     public function update($id){
         $work = check::findOrFail($id);
@@ -93,4 +94,6 @@ class HomeController extends Controller
         $list= check::where('state', '>', 0)->orderBy('category', 'ASC')->get();
         return response()->json($list);
     }
+
+
 }
